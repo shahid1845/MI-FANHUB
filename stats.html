@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics — MI Fan Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">MI</span>
+        <span class="brand-text">MI Fan Hub</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="news.html" class="nav-link">News</a>
+        <a href="stats.html" class="nav-link">Stats</a>
+        <a href="highlights.html" class="nav-link">Highlights</a>
+        <a href="moments.html" class="nav-link">Moments</a>
+        <a href="wall-of-fame.html" class="nav-link">Wall of Fame</a>
+        <a href="chat.html" class="nav-link">Fan Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-intro">
+        <h2>Statistics</h2>
+        <p>Records, head-to-head, and all-time leaders since 2008.</p>
+      </div>
+
+      <!-- Leaders -->
+      <section>
+        <h2 class="section-title">All-time career leaders</h2>
+        <div class="card">
+          <div class="filter-row">
+            <button class="filter-btn active" data-tab="batting">Batting</button>
+            <button class="filter-btn" data-tab="bowling">Bowling</button>
+            <button class="filter-btn" data-tab="franchise">Franchise</button>
+          </div>
+          <div id="stats-leader-container"></div>
+        </div>
+      </section>
+
+      <!-- H2H Calculator -->
+      <section>
+        <h2 class="section-title">Head-to-head records</h2>
+        <div class="card">
+          <label class="field-label" for="h2h-select">Select opponent</label>
+          <select id="h2h-select" style="margin-bottom: 16px;"></select>
+          <div class="h2h-scale">
+            <div class="h2h-side">
+              <div id="mi-wins" class="num" style="color: var(--blue);">0</div>
+              <div class="cap">MI wins</div>
+            </div>
+            <div class="h2h-mid" id="h2h-summary">vs 0 games</div>
+            <div class="h2h-side">
+              <div id="opp-wins" class="num" style="color: var(--muted);">0</div>
+              <div class="cap">Opponent wins</div>
+            </div>
+          </div>
+          <div class="progress-bar" style="height: 8px; margin-bottom: 12px;">
+            <div style="display: flex; height: 100%; border-radius: 4px; overflow: hidden;">
+              <div id="h2h-fill-mi" style="background: var(--blue);"></div>
+              <div id="h2h-fill-opp" style="background: #c3ccd9;"></div>
+            </div>
+          </div>
+          <p id="h2h-comment" style="font-size: 13px; color: var(--muted);"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script>
+    const leaders = {
+      batting: [
+        { label: 'Rohit Sharma', value: '5,575', sub: 'Runs · most in MI history', pct: 100 },
+        { label: 'Suryakumar Yadav', value: '3,682', sub: 'Runs · SR 148.59', pct: 66 },
+        { label: 'Kieron Pollard', value: '3,412', sub: 'Runs · 223 sixes', pct: 61 }
+      ],
+      bowling: [
+        { label: 'Jasprit Bumrah', value: '178', sub: 'Wickets · economy 7.31', pct: 100 },
+        { label: 'Lasith Malinga', value: '170', sub: 'Wickets · SR 16.6', pct: 95 }
+      ],
+      franchise: [
+        { label: 'Win rate', value: '53.95%', sub: 'Across 291 IPL matches', pct: 54 },
+        { label: 'Finals reached', value: '8', sub: 'Joint most appearances', pct: 80 }
+      ]
+    };
+
+    const H2H = {
+      csk: { name: 'Chennai Super Kings', matches: 43, wins: 22, losses: 21, comment: 'MI holds the overall edge, including finals in 2013, 2015 and 2019.' },
+      rcb: { name: 'Royal Challengers Bengaluru', matches: 36, wins: 20, losses: 16, comment: 'Blockbuster batting contests.' },
+      kkr: { name: 'Kolkata Knight Riders', matches: 37, wins: 25, losses: 12, comment: 'Dominant MI record across both venues.' }
+    };
+
+    function renderLeaders(tab) {
+      const data = leaders[tab] || [];
+      document.getElementById('stats-leader-container').innerHTML = data.map(r => `
+        <div class="progress-row">
+          <div class="progress-head">
+            <div>
+              <span class="name">${r.label}</span>
+              <span class="sub" style="margin-left: 8px;">${r.sub || ''}</span>
+            </div>
+            <span class="value">${r.value}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${r.pct}%;"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderLeaders(btn.dataset.tab);
+      });
+    });
+
+    const select = document.getElementById('h2h-select');
+    Object.entries(H2H).forEach(([key, val]) => {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = val.name;
+      select.appendChild(opt);
+    });
+
+    function updateH2H(key) {
+      const data = H2H[key];
+      document.getElementById('mi-wins').textContent = data.wins;
+      document.getElementById('opp-wins').textContent = data.losses;
+      document.getElementById('h2h-summary').textContent = `vs ${data.matches} games`;
+      document.getElementById('h2h-comment').textContent = data.comment;
+      document.getElementById('h2h-fill-mi').style.width = `${(data.wins / data.matches) * 100}%`;
+      document.getElementById('h2h-fill-opp').style.width = `${(data.losses / data.matches) * 100}%`;
+    }
+
+    select.addEventListener('change', (e) => updateH2H(e.target.value));
+
+    renderLeaders('batting');
+    updateH2H('csk');
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fan Chat — MI Fan Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">MI</span>
+        <span class="brand-text">MI Fan Hub</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="news.html" class="nav-link">News</a>
+        <a href="stats.html" class="nav-link">Stats</a>
+        <a href="highlights.html" class="nav-link">Highlights</a>
+        <a href="moments.html" class="nav-link">Moments</a>
+        <a href="wall-of-fame.html" class="nav-link">Wall of Fame</a>
+        <a href="chat.html" class="nav-link">Fan Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-intro">
+        <h2>Fan chat</h2>
+        <p>Talk MI with fans from around the world.</p>
+      </div>
+
+      <div id="chat-alert" class="card hidden" style="background: #fff8e6; border: 1px solid #f0dba0; margin-bottom: 16px; padding: 12px 16px; font-size: 13px; color: #7a5c0a;"></div>
+
+      <div class="chat-shell">
+        <div class="chat-top">
+          <div class="status">
+            <span id="status-dot" class="status-dot"></span>
+            <span id="status-text">Connecting…</span>
+          </div>
+          <span style="font-size: 12px; color: var(--muted);"><span id="chat-count">0</span> messages</span>
+        </div>
+
+        <div id="chat-scroll" class="chat-scroll">
+          <div class="chat-empty">Loading messages…</div>
+        </div>
+
+        <div class="chat-composer">
+          <div id="chat-name-section" style="display: flex; gap: 8px; width: 100%;">
+            <input type="text" id="chat-name-input" placeholder="Pick a display name…" maxlength="24">
+            <button id="chat-join-btn" class="btn btn-primary btn-sm">Join</button>
+          </div>
+
+          <div id="chat-input-section" class="hidden" style="display: flex; gap: 8px; width: 100%;">
+            <textarea id="chat-text-input" placeholder="Say something… (Enter to send)" maxlength="400" rows="1"></textarea>
+            <button id="chat-send-btn" class="btn btn-primary btn-sm">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; text-align: center;">
+        <button id="change-name-btn" class="hidden" style="font-size: 12px; color: var(--muted); font-weight: 600;">Change display name</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

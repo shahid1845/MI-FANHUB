@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News & Updates — MI Fan Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">MI</span>
+        <span class="brand-text">MI Fan Hub</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="news.html" class="nav-link">News</a>
+        <a href="stats.html" class="nav-link">Stats</a>
+        <a href="highlights.html" class="nav-link">Highlights</a>
+        <a href="moments.html" class="nav-link">Moments</a>
+        <a href="wall-of-fame.html" class="nav-link">Wall of Fame</a>
+        <a href="chat.html" class="nav-link">Fan Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-intro">
+        <h2>News & updates</h2>
+        <p>Every item is clearly labelled: confirmed, report, rumour or analysis.</p>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+        <button class="filter-btn" data-filter="rumour">Rumours</button>
+        <button class="filter-btn" data-filter="analysis">Analysis</button>
+      </div>
+
+      <div class="news-list" id="news-container">
+        <article class="card card-hover news-item" data-type="rumour" data-id="hardik-trade">
+          <div class="news-head">
+            <span class="badge badge-rumour">Rumour</span>
+            <span class="date">12 Jul 2026</span>
+          </div>
+          <h3>Rumour: Hardik Pandya's MI future under question</h3>
+          <p>Speculation about a Pandya exit has grown since MI's group-stage exit in 2026. Nothing has been confirmed by the club, BCCI or the player.</p>
+        </article>
+
+        <article class="card card-hover news-item" data-type="confirmed" data-id="auction-2027">
+          <div class="news-head">
+            <span class="badge badge-confirmed">Confirmed</span>
+            <span class="date">10 Jul 2026</span>
+          </div>
+          <h3>BCCI expected to publish IPL 2027 auction framework this month</h3>
+          <p>Retention and mega-auction rules are reportedly due before the end of July; the retention window is pencilled in for mid-September to late October.</p>
+        </article>
+
+        <article class="card card-hover news-item" data-type="analysis" data-id="rebuild-2027">
+          <div class="news-head">
+            <span class="badge badge-analysis">Analysis</span>
+            <span class="date">8 Jul 2026</span>
+          </div>
+          <h3>Rebuild watch: what could MI's core look like for 2027?</h3>
+          <p>Three sub-par finishes in four years is forcing a rethink. A level-headed look at who the auction window is likely to affect.</p>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top: 24px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border);">
+        <p style="font-size: 13px; color: var(--muted);">
+          <strong>Rumours</strong> are fan/media speculation, not statements from Mumbai Indians, the BCCI, or the players involved. 
+          <strong>Confirmed</strong> items are based on public reporting from official sources.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div id="news-modal" class="modal-overlay hidden">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div>
+          <div class="news-head" style="margin-bottom: 6px;">
+            <span id="modal-badge" class="badge"></span>
+            <span id="modal-date" class="date"></span>
+          </div>
+          <h3 id="modal-title"></h3>
+        </div>
+        <button id="modal-close" class="modal-close">×</button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><strong>MI Fan Hub</strong> — an independent fan resource.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const newsData = {
+      'hardik-trade': {
+        title: "Rumour: Hardik Pandya's MI future under question",
+        date: '12 Jul 2026', type: 'rumour', badgeCls: 'badge-rumour', label: 'Rumour',
+        body: [
+          "Mumbai finished ninth in 2026 with four wins from eleven. Pandya's own returns did little to quiet questions, and off-season chatter has been constant.",
+          "Reports have linked Lucknow, Chennai and Kolkata as possible destinations. None of this has been confirmed by Mumbai Indians, the BCCI, or Pandya himself.",
+          "Treat this as rumour, not fact. We'll update the moment anything official lands."
+        ]
+      },
+      'auction-2027': {
+        title: 'BCCI expected to publish IPL 2027 auction framework this month',
+        date: '10 Jul 2026', type: 'confirmed', badgeCls: 'badge-confirmed', label: 'Confirmed',
+        body: [
+          "With the 2026 season complete, attention shifts to 2027. Multiple reports say the BCCI will publish the full retention framework before the month is out.",
+          "The retention window is reportedly expected to open mid-September and close in late October."
+        ]
+      },
+      'rebuild-2027': {
+        title: "Rebuild watch: what could MI's core look like for 2027?",
+        date: '8 Jul 2026', type: 'analysis', badgeCls: 'badge-analysis', label: 'Analysis',
+        body: [
+          "MI have missed the playoffs in three of the last four seasons.",
+          "Likely core to stay: Jasprit Bumrah, Suryakumar Yadav, Tilak Varma and Ryan Rickelton."
+        ]
+      }
+    };
+
+    // Modal & Filter logic
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.news-item').forEach(item => {
+          item.style.display = (filter === 'all' || item.dataset.type === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    const modal = document.getElementById('news-modal');
+    document.querySelectorAll('.news-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const data = newsData[item.dataset.id];
+        if (!data) return;
+        document.getElementById('modal-title').textContent = data.title;
+        document.getElementById('modal-date').textContent = data.date;
+        const badge = document.getElementById('modal-badge');
+        badge.textContent = data.label;
+        badge.className = `badge ${data.badgeCls}`;
+        
+        document.getElementById('modal-body').innerHTML = data.body.map(p => `<p>${p}</p>`).join('');
+        modal.classList.remove('hidden');
+      });
+    });
+
+    document.getElementById('modal-close').addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+  </script>
+</body>
+</html>
